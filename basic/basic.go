@@ -1,0 +1,314 @@
+/*
+   Deskripsi: Aplikasi ini digunakan untuk mengelola informasi startup, termasuk tim, produk, dan pendanaan. Pengguna aplikasi adalah pendiri startup dan investor yang ingin melihat perkembangan startup.
+
+   Spesifikasi:
+   a. Pengguna dapat menambahkan, mengubah, dan menghapus data startup. -PARTIALLY DONE
+   b. Pengguna dapat menambahkan daftar anggota tim dan peran mereka dalam startup. -DONE
+   c. Pencarian startup berdasarkan nama atau bidang usaha menggunakan Sequential dan Binary Search. -DONE
+   d. Pengurutan daftar startup berdasarkan total pendanaan atau tahun berdiri menggunakan Selection dan Insertion Sort. -NOT DONE
+   e. Sistem menampilkan laporan jumlah startup per kategori bidang usaha. -PARTIALLY DONE
+*/
+
+// NOTE: THIS IS AN INCREDIBLY ROUGH DRAFT OF WHAT'S TO COME
+// FOR THE RECORD, NO AI WOULD WRITE CODE THIS HORRENDOUS
+
+// TODO: FIX THE update() AND del() FUNCTIONS; SEE IF SORTING FUNCTIONS ACTUALLY WORK; SHOW CATEGORIES - MIGHT NEED FIXING
+
+// ACTUAL PROGRAM STARTS HERE
+package main
+
+import "fmt"
+
+// CONSTANTS FOR ARRAYS
+const (
+	nmax_team int = 10
+	nmax_comp int = 100
+)
+
+// STRUCTS
+type mem struct {
+	name string
+	role string
+}
+type startup struct {
+	yrFound, nTeam                   int
+	name, indust, investorName, role string
+	funding                          float64
+	team                             [nmax_team]mem
+}
+
+// GLOBAL VARIABLES
+var startups [nmax_comp]startup
+var nStartup int = 0
+
+// PROCEDURE
+func addStartup() {
+	var s startup
+	if nStartup >= nmax_comp {
+		fmt.Println("Maksimal startup tercapai.")
+		return
+	}
+	fmt.Print("Nama Startup: ")
+	fmt.Scan(&s.name)
+	fmt.Print("Bidang Usaha: ")
+	fmt.Scan(&s.indust)
+	fmt.Print("Tahun Berdiri: ")
+	fmt.Scan(&s.yrFound)
+	fmt.Print("Total Pendanaan: ")
+	fmt.Scan(&s.funding)
+	s.nTeam = 0
+	startups[nStartup] = s
+	nStartup++
+	fmt.Println("Startup ditambahkan.")
+}
+
+// FUNCTIONS (UPDATE, DELETE)
+func update(name string) bool { // NEEDS WORK
+	var i int
+	fmt.Print("Nama startup yang ingin diubah: ")
+	fmt.Scan(&name)
+	for i = 0; i < nStartup; i++ {
+		if startups[i].name == name {
+			var s startup
+			fmt.Print("Nama Baru: ")
+			fmt.Scan(&s.name)
+			fmt.Print("Bidang Usaha Baru: ")
+			fmt.Scan(&s.indust)
+			fmt.Print("Tahun Berdiri Baru: ")
+			fmt.Scan(&s.yrFound)
+			fmt.Print("Total Pendanaan Baru: ")
+			fmt.Scan(&s.funding)
+			s.nTeam = startups[i].nTeam
+			startups[i] = s
+			return true
+		}
+	}
+	return false
+}
+func del(name string) bool { // NEEDS WORK
+	var i, j int
+	fmt.Print("Nama startup yang ingin dihapus: ")
+	fmt.Scan(&name)
+	for i = 0; i < nStartup; i++ {
+		if startups[i].name == name {
+			for j = i; j < nStartup; j++ {
+				startups[j] = startups[j+1]
+			}
+			nStartup--
+			return true
+			//return
+		}
+	}
+	return false
+}
+
+// ADD TEAM MEMBER
+func addTeamMem() {
+	var name string
+	var i int
+	fmt.Print("Nama Startup: ")
+	fmt.Scan(&name)
+	for i = 0; i < nStartup; i++ {
+		if startups[i].name == name {
+			if startups[i].nTeam >= nmax_team {
+				fmt.Println("Tim sudah penuh.")
+				return
+			}
+			var member mem
+			fmt.Print("Nama Anggota: ")
+			fmt.Scan(&member.name)
+			fmt.Print("Peran: ")
+			fmt.Scan(&member.role)
+			startups[i].team[startups[i].nTeam] = member
+			startups[i].nTeam++
+			fmt.Println("Anggota ditambahkan.")
+			return
+		}
+	}
+	fmt.Println("Startup tidak ditemukan.")
+}
+
+// SEQUENTIAL SEARCH
+func seq() {
+	var i int
+	var name string
+	fmt.Print("Nama Startup: ")
+	fmt.Scan(&name)
+	for i = 0; i < nStartup; i++ {
+		if startups[i].name == name {
+			fmt.Println("Ditemukan:", startups[i].name)
+			return
+		}
+	}
+	fmt.Println("Tidak ditemukan.")
+}
+
+// SELECTION SORT
+func selSortFund() { // DOES IT WORK?
+	var i, j int
+	for i = 0; i < nStartup-1; i++ {
+		var min_idx int = i
+		for j = i + 1; j < nStartup; j++ {
+			if startups[j].funding < startups[min_idx].funding {
+				min_idx = j
+			}
+		}
+		startups[i] = startups[min_idx]
+		startups[min_idx] = startups[i]
+		// startups[i],startups[min_idx]=startups[min_idx],startups[i]
+	}
+}
+
+// INSERTION SORT
+func insSortYr() { // DOES IT WORK?
+	var i, j int
+	for i = 0; i < nStartup-1; i++ {
+		var key startup = startups[i]
+		j = i - 1
+		for j >= 0 && startups[j].yrFound > key.yrFound {
+			startups[j+1] = startups[j]
+			j--
+		}
+		startups[j+1] = key
+	}
+}
+func insSortName() { // DOES IT WORK?
+	var i, j int
+	for i = 0; i < nStartup-1; i++ {
+		var key startup = startups[i]
+		j = i - 1
+		for j >= 0 && startups[j].name > key.name {
+			startups[j+1] = startups[j]
+			j--
+		}
+		startups[j+1] = key
+	}
+}
+
+// BINARY SEARCH
+func bin() {
+	var name string
+	fmt.Print("Nama Startup: ")
+	fmt.Scan(&name)
+	insSortName()
+	var lo int = 0
+	var hi int = nStartup - 1
+	for lo <= hi {
+		var mid int = (lo + hi) / 2
+		if startups[mid].name == name {
+			fmt.Println("Ditemukan:", startups[mid].name)
+			return
+		} else if startups[mid].name < name {
+			lo = mid + 1
+		} else {
+			hi = mid - 1
+		}
+	}
+	fmt.Println("Tidak ditemukan.")
+}
+
+// AMOUNT OF STARTUPS PER ROLE
+func rep() {
+	var industry [nmax_comp]string
+	var count [nmax_comp]int
+	var unique int = 0
+	var i, j int
+	for i = 0; i < nStartup; i++ {
+		var found bool = false
+		for j = 0; j < unique; j++ {
+			if industry[j] == startups[i].indust {
+				count[j]++
+				found = true
+				break
+			}
+		}
+		if !found {
+			industry[unique] = startups[i].indust
+			count[unique] = 1
+			unique++
+		}
+	}
+	fmt.Println("Laporan Jumlah Startup per Bidang Usaha:")
+	for i = 0; i < unique; i++ {
+		fmt.Printf("%s: %d startup\n", industry[i], count[i])
+	}
+}
+
+func print() {
+	var i, j int
+	for i = 0; i < nStartup; i++ {
+		var s startup = startups[i]
+		fmt.Printf("Nama: %s; Industri: %s; Tahun: %d; Dana: Rp%.2f\n", s.name, s.indust, s.yrFound, s.funding)
+		fmt.Println("Tim:")
+		for j = 0; j < s.nTeam; j++ {
+			var t mem = s.team[j]
+			fmt.Printf("  - %s (%s)\n", t.name, t.role)
+		}
+	}
+}
+
+// MAIN SHALL ALWAYS BE LAST!!!
+func main() {
+	var data startup
+	for {
+		// HEADER GOES HERE
+		fmt.Println("\n\t========= M E N U ==========")
+		fmt.Println("1. Tambah Startup")
+		fmt.Println("2. Tambah Anggota Tim")
+		fmt.Println("3. Ubah Startup")
+		fmt.Println("4. Hapus Startup")
+		fmt.Println("5. Tampilkan Semua Startup")
+		fmt.Println("6. Cari (Sequential)")
+		fmt.Println("7. Cari (Binary)")
+		fmt.Println("8. Urutkan Berdasarkan Pendanaan (Selection)")
+		fmt.Println("9. Urutkan Berdasarkan Tahun Pendirian (Insertion)")
+		fmt.Println("10. Laporan per Industri")
+		fmt.Println("0. Keluar")
+		fmt.Print("\nPilihan: ")
+
+		// CHOOSE HERE
+		var choice int
+		fmt.Scan(&choice)
+
+		// DEPENDING ON CHOICE...
+		switch choice {
+		case 1:
+			addStartup()
+		case 2:
+			addTeamMem()
+		case 3:
+			var updated bool = update(data.name)
+			if updated {
+				fmt.Println("Startup diubah.")
+			} else {
+				fmt.Println("Startup tidak ditemukan.")
+			}
+		case 4:
+			var deleted bool = del(data.name)
+			if deleted {
+				fmt.Println("Startup dihapus.")
+			} else {
+				fmt.Println("Startup tidak ditemukan.")
+			}
+		case 5:
+			print()
+		case 6:
+			seq()
+		case 7:
+			bin()
+		case 8:
+			selSortFund()
+			fmt.Println("Diurutkan berdasarkan pendanaan.")
+		case 9:
+			insSortYr()
+			fmt.Println("Diurutkan berdasarkan tahun pendirian.")
+		case 10:
+			rep()
+		case 0:
+			fmt.Println("Keluar dari program.")
+			return
+		default:
+			fmt.Println("Pilihan tidak ada. Pilih lagi.")
+		}
+	}
+}
