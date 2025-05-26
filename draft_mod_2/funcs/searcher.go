@@ -11,7 +11,6 @@ func Seq() {
 	for i = 0; i < nStartup; i++ {
 		if startups[i].name == name {
 			fmt.Println("Ditemukan:", startups[i].name)
-			return
 		}
 	}
 	fmt.Println("Tidak ditemukan.")
@@ -29,7 +28,6 @@ func Bin() {
 		var mid int = (lo + hi) / 2
 		if startups[mid].name == name {
 			fmt.Println("Ditemukan:", startups[mid].name)
-			return
 		} else if startups[mid].name < name {
 			lo = mid + 1
 		} else {

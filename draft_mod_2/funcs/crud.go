@@ -7,7 +7,6 @@ func AddStartup() {
 	var s startup
 	if nStartup >= nmax_comp {
 		fmt.Println("Maksimal startup tercapai.")
-		return
 	}
 	fmt.Print("Nama Startup: ")
 	fmt.Scan(&s.name)
@@ -57,7 +56,6 @@ func Del(name string) bool { // NEEDS WORK
 			}
 			nStartup--
 			return true
-			//return
 		}
 	}
 	return false

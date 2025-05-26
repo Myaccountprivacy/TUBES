@@ -14,7 +14,6 @@ func Rep() {
 			if industry[j] == startups[i].indust {
 				count[j]++
 				found = true
-				break
 			}
 		}
 		if !found {
