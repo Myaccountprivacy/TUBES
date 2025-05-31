@@ -20,6 +20,16 @@ peacekeeping
 autobots
 optimus_prime
 ceo
+1
+merryweather
+security
+1999
+1000000
+1
+blackwater
+security
+999
+350
 
 5
 
