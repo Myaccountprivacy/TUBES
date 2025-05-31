@@ -5,10 +5,13 @@ import (
 	"fmt"
 )
 
+var exited bool = false
+
 // MAIN SHALL ALWAYS BE LAST!!!
 func main() {
 	var name string
-	for {
+	var choice int
+	for !exited {
 		// HEADER GOES HERE
 		fmt.Println("\n\t========= M E N U ==========")
 		fmt.Println("1. Tambah Startup")
@@ -25,7 +28,6 @@ func main() {
 		fmt.Print("\nPilihan: ")
 
 		// CHOOSE HERE
-		var choice int
 		fmt.Scan(&choice)
 
 		// DEPENDING ON CHOICE...
@@ -70,9 +72,10 @@ func main() {
 			fmt.Println("Diurutkan berdasarkan tahun pendirian.")
 		case 10:
 			funcs.Rep()
-		}
-		if choice == 0 {
-			break
+		case 0:
+			exited = true
+		default:
+			fmt.Println("Pilihan tidak tersedia.")
 		}
 	}
 }
