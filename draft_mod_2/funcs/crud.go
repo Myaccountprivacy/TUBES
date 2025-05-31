@@ -65,24 +65,28 @@ func Del(name string) bool { // NEEDS WORK
 func AddTeamMem() {
 	var name string
 	var i int
+	var found bool
 	fmt.Print("Nama Startup: ")
 	fmt.Scan(&name)
-	for i = 0; i < nStartup; i++ {
+	for i = 0; i < nStartup && !found; i++ {
 		if startups[i].name == name {
+			found = true
 			if startups[i].nTeam >= nmax_team {
 				fmt.Println("Tim sudah penuh.")
 				return
+			} else {
+				var member mem
+				fmt.Print("Nama Anggota: ")
+				fmt.Scan(&member.name)
+				fmt.Print("Peran: ")
+				fmt.Scan(&member.role)
+				startups[i].team[startups[i].nTeam] = member
+				startups[i].nTeam++
+				fmt.Println("Anggota ditambahkan.")
 			}
-			var member mem
-			fmt.Print("Nama Anggota: ")
-			fmt.Scan(&member.name)
-			fmt.Print("Peran: ")
-			fmt.Scan(&member.role)
-			startups[i].team[startups[i].nTeam] = member
-			startups[i].nTeam++
-			fmt.Println("Anggota ditambahkan.")
-			return
 		}
 	}
-	fmt.Println("Startup tidak ditemukan.")
+	if !found {
+		fmt.Println("Startup tidak ditemukan.")
+	}
 }

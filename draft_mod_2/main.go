@@ -5,12 +5,11 @@ import (
 	"fmt"
 )
 
-var exited bool = false
-
 // MAIN SHALL ALWAYS BE LAST!!!
 func main() {
 	var name string
 	var choice int
+	var exited bool = false
 	for !exited {
 		// HEADER GOES HERE
 		fmt.Println("\n\t========= M E N U ==========")
