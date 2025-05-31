@@ -51,9 +51,17 @@ func main() {
 		case 5:
 			funcs.Print()
 		case 6:
-			funcs.Seq()
+			var sfound bool = false
+			funcs.Seq(&sfound)
+			if !sfound {
+				fmt.Println("Startup tidak ditemukan.")
+			}
 		case 7:
-			funcs.Bin()
+			var found bool = false
+			funcs.Bin(&found)
+			if !found {
+				fmt.Println("Startup tidak ditemukan.")
+			}
 		case 8:
 			funcs.SelSortFund()
 			fmt.Println("Diurutkan berdasarkan pendanaan.")
@@ -62,11 +70,9 @@ func main() {
 			fmt.Println("Diurutkan berdasarkan tahun pendirian.")
 		case 10:
 			funcs.Rep()
-		case 0:
-			fmt.Println("Keluar dari program.")
-			return
-		default:
-			fmt.Println("Pilihan tidak ada. Pilih lagi.")
+		}
+		if choice == 0 {
+			break
 		}
 	}
 }

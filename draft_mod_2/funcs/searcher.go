@@ -3,7 +3,7 @@ package funcs
 import "fmt"
 
 // SEQUENTIAL SEARCH
-func Seq() {
+func Seq(sfound *bool) {
 	var i int
 	var name string
 	fmt.Print("Nama Startup: ")
@@ -11,13 +11,13 @@ func Seq() {
 	for i = 0; i < nStartup; i++ {
 		if startups[i].name == name {
 			fmt.Println("Ditemukan:", startups[i].name)
+			*sfound = true
 		}
 	}
-	fmt.Println("Tidak ditemukan.")
 }
 
 // BINARY SEARCH
-func Bin() {
+func Bin(found *bool) {
 	var name string
 	fmt.Print("Nama Startup: ")
 	fmt.Scan(&name)
@@ -28,11 +28,12 @@ func Bin() {
 		var mid int = (lo + hi) / 2
 		if startups[mid].name == name {
 			fmt.Println("Ditemukan:", startups[mid].name)
+			*found = true
+			lo = hi + 1
 		} else if startups[mid].name < name {
 			lo = mid + 1
-		} else {
+		} else if startups[mid].name > name {
 			hi = mid - 1
 		}
 	}
-	fmt.Println("Tidak ditemukan.")
 }
