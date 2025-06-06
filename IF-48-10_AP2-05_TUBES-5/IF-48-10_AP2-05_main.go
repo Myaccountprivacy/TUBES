@@ -1,7 +1,6 @@
 package main
 
 import (
-	"draft_mod_2/funcs"
 	"fmt"
 )
 
@@ -32,45 +31,45 @@ func main() {
 		// DEPENDING ON CHOICE...
 		switch choice {
 		case 1:
-			funcs.AddStartup()
+			AddStartup()
 		case 2:
-			funcs.AddTeamMem()
+			AddTeamMem()
 		case 3:
-			var updated bool = funcs.Update(name)
+			var updated bool = Update(name)
 			if updated {
 				fmt.Println("Startup diubah.")
 			} else {
 				fmt.Println("Startup tidak ditemukan.")
 			}
 		case 4:
-			var deleted bool = funcs.Del(name)
+			var deleted bool = Del(name)
 			if deleted {
 				fmt.Println("Startup dihapus.")
 			} else {
 				fmt.Println("Startup tidak ditemukan.")
 			}
 		case 5:
-			funcs.Print()
+			Print()
 		case 6:
 			var sfound bool = false
-			funcs.Seq(&sfound)
+			Seq(&sfound)
 			if !sfound {
 				fmt.Println("Startup tidak ditemukan.")
 			}
 		case 7:
 			var found bool = false
-			funcs.Bin(&found)
+			Bin(&found)
 			if !found {
 				fmt.Println("Startup tidak ditemukan.")
 			}
 		case 8:
-			funcs.SelSortFund()
+			SelSortFund()
 			fmt.Println("Diurutkan berdasarkan pendanaan.")
 		case 9:
-			funcs.InsSortYr()
+			InsSortYr()
 			fmt.Println("Diurutkan berdasarkan tahun pendirian.")
 		case 10:
-			funcs.Rep()
+			Rep()
 		case 0:
 			exited = true
 		default:

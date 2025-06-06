@@ -1,4 +1,4 @@
-package funcs
+package main
 
 // SELECTION SORT
 func SelSortFund() { // DOES IT WORK?

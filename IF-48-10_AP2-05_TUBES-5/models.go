@@ -1,4 +1,4 @@
-package funcs
+package main
 
 // STRUCTS
 type mem struct {
