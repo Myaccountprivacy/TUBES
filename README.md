@@ -5,4 +5,7 @@ Anggota Kelompok:
 *  Avatariani Purnama Devi - 103012430040
 
 Topik: AP2-05  
-Aplikasi Manajemen Startup Sederhana
+Aplikasi Manajemen Startup Sederhana  
+  
+Catatan:  
+Gunakan "go run ." (tanpa tanda kutip) untuk menjalankan program
