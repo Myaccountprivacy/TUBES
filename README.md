@@ -7,5 +7,5 @@ Anggota Kelompok:
 Topik: AP2-05  
 Aplikasi Manajemen Startup Sederhana  
   
-Catatan:  
-Gunakan "go run ." (tanpa tanda kutip) untuk menjalankan program
+> [!IMPORTANT]
+> Gunakan "go run ." (tanpa tanda kutip) untuk menjalankan program.
